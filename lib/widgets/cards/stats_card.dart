@@ -238,7 +238,7 @@ class GlucoseStatsCard extends StatelessWidget {
       case GlucoseStatsType.tir:
         return _StatsConfig(
           color: _getTIRColor(value),
-          icon: Icons.target,
+          icon: Icons.adjust,
           decimals: 1,
         );
       case GlucoseStatsType.cv:

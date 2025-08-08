@@ -510,7 +510,11 @@ class _GlucoseFormState extends State<_GlucoseForm> {
               const SizedBox(width: AppSizes.paddingM),
               Text(
                 '手動血糖記錄',
-                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -554,7 +558,10 @@ class _GlucoseFormState extends State<_GlucoseForm> {
       children: [
         Text(
           '血糖趨勢',
-          style: Theme.of(context).textTheme.titleMedium,
+          style: Theme
+              .of(context)
+              .textTheme
+              .titleMedium,
         ),
         const SizedBox(height: AppSizes.paddingS),
         Container(
@@ -577,7 +584,8 @@ class _GlucoseFormState extends State<_GlucoseForm> {
                       vertical: AppSizes.paddingM,
                     ),
                     decoration: BoxDecoration(
-                      color: isSelected ? AppColors.primary : Colors.transparent,
+                      color: isSelected ? AppColors.primary : Colors
+                          .transparent,
                       borderRadius: BorderRadius.circular(AppSizes.radiusL),
                     ),
                     child: Column(
@@ -586,7 +594,8 @@ class _GlucoseFormState extends State<_GlucoseForm> {
                           _getTrendArrow(trend),
                           style: TextStyle(
                             fontSize: 20,
-                            color: isSelected ? Colors.white : AppColors.textSecondary,
+                            color: isSelected ? Colors.white : AppColors
+                                .textSecondary,
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -594,7 +603,8 @@ class _GlucoseFormState extends State<_GlucoseForm> {
                           _getTrendDescription(trend),
                           style: TextStyle(
                             fontSize: 10,
-                            color: isSelected ? Colors.white : AppColors.textSecondary,
+                            color: isSelected ? Colors.white : AppColors
+                                .textSecondary,
                           ),
                         ),
                       ],
@@ -623,11 +633,15 @@ class _GlucoseFormState extends State<_GlucoseForm> {
               ),
               child: Row(
                 children: [
-                  const Icon(Icons.calendar_today, color: AppColors.textSecondary),
+                  const Icon(
+                      Icons.calendar_today, color: AppColors.textSecondary),
                   const SizedBox(width: AppSizes.paddingS),
                   Text(
                     '${_selectedDateTime.month}/${_selectedDateTime.day}',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge,
                   ),
                 ],
               ),
@@ -649,8 +663,13 @@ class _GlucoseFormState extends State<_GlucoseForm> {
                   const Icon(Icons.access_time, color: AppColors.textSecondary),
                   const SizedBox(width: AppSizes.paddingS),
                   Text(
-                    '${_selectedDateTime.hour.toString().padLeft(2, '0')}:${_selectedDateTime.minute.toString().padLeft(2, '0')}',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    '${_selectedDateTime.hour.toString().padLeft(
+                        2, '0')}:${_selectedDateTime.minute.toString().padLeft(
+                        2, '0')}',
+                    style: Theme
+                        .of(context)
+                        .textTheme
+                        .bodyLarge,
                   ),
                 ],
               ),
@@ -716,7 +735,9 @@ class _GlucoseFormState extends State<_GlucoseForm> {
         value: glucoseValue,
         timestamp: _selectedDateTime,
         trend: _selectedTrend,
-        notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim(),
+        notes: _notesController.text
+            .trim()
+            .isEmpty ? null : _notesController.text.trim(),
       );
 
       if (mounted) {
@@ -782,3 +803,4 @@ class _GlucoseFormState extends State<_GlucoseForm> {
         return '快速下降';
     }
   }
+}

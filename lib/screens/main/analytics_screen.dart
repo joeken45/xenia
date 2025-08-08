@@ -5,7 +5,6 @@ import '../../providers/bluetooth_provider.dart';
 import '../../widgets/cards/stats_card.dart';
 import '../../widgets/charts/glucose_chart.dart';
 import '../../widgets/common/custom_button.dart';
-import '../../widgets/common/error_widget.dart';
 import '../../utils/constants.dart';
 import '../../generated/l10n.dart';
 
@@ -300,7 +299,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen>
             value: '${tir.toStringAsFixed(1)}%',
             subtitle: '目標範圍內時間',
             color: _getTIRColor(tir),
-            icon: Icons.target,
+            icon: Icons.adjust,
           ),
         ),
         const SizedBox(width: AppSizes.paddingM),

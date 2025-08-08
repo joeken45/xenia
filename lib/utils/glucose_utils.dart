@@ -35,7 +35,7 @@ class GlucoseUtils {
       case GlucoseRange.high:
         return AppColors.glucoseHigh;
       case GlucoseRange.normal:
-      default:
+      // default:
         return AppColors.glucoseNormal;
     }
   }

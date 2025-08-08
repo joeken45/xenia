@@ -6,7 +6,6 @@ import '../../widgets/common/custom_button.dart';
 import '../../widgets/common/loading_widget.dart';
 import '../../widgets/common/error_widget.dart';
 import '../../utils/constants.dart';
-import '../../generated/l10n.dart';
 
 class BluetoothScanScreen extends StatefulWidget {
   const BluetoothScanScreen({super.key});

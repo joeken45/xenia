@@ -147,7 +147,7 @@ class AuthService {
           .doc(uid)
           .get();
 
-      if (doc.exists) {
+      if (doc.exists && doc.data() != null) {
         return UserModel.fromMap(doc.data() as Map<String, dynamic>);
       }
       return null;
@@ -178,25 +178,6 @@ class AuthService {
       }
     } catch (e) {
       throw Exception('更新用戶資料失敗: ${e.toString()}');
-    }
-  }
-
-  // 刪除帳號
-  Future<void> deleteAccount() async {
-    try {
-      final User? user = _auth.currentUser;
-      if (user != null) {
-        // 刪除 Firestore 中的用戶資料
-        await _firestore
-            .collection(APIConstants.usersCollection)
-            .doc(user.uid)
-            .delete();
-
-        // 刪除 Auth 帳號
-        await user.delete();
-      }
-    } catch (e) {
-      throw Exception('刪除帳號失敗: ${e.toString()}');
     }
   }
 
@@ -258,46 +239,6 @@ class AuthService {
         return '網路連線失敗，請檢查網路設定';
       default:
         return '認證失敗: ${e.message}';
-    }
-  }
-
-  // 重新認證用戶（用於敏感操作）
-  Future<void> reauthenticateWithPassword(String password) async {
-    try {
-      final User? user = _auth.currentUser;
-      if (user != null && user.email != null) {
-        final credential = EmailAuthProvider.credential(
-          email: user.email!,
-          password: password,
-        );
-        await user.reauthenticateWithCredential(credential);
-      }
-    } catch (e) {
-      throw Exception('重新認證失敗: ${e.toString()}');
-    }
-  }
-
-  // 更改密碼
-  Future<void> changePassword(String newPassword) async {
-    try {
-      final User? user = _auth.currentUser;
-      if (user != null) {
-        await user.updatePassword(newPassword);
-      }
-    } catch (e) {
-      throw Exception('密碼更改失敗: ${e.toString()}');
-    }
-  }
-
-  // 驗證電子郵件
-  Future<void> sendEmailVerification() async {
-    try {
-      final User? user = _auth.currentUser;
-      if (user != null && !user.emailVerified) {
-        await user.sendEmailVerification();
-      }
-    } catch (e) {
-      throw Exception('發送驗證郵件失敗: ${e.toString()}');
     }
   }
 }

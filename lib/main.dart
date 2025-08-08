@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:xenia/utils/constants.dart';
 
 import 'providers/auth_provider.dart';
 import 'providers/cgm_provider.dart';
