@@ -1,122 +1,200 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() {
-  runApp(const MyApp());
+import 'providers/auth_provider.dart';
+import 'providers/cgm_provider.dart';
+import 'providers/bluetooth_provider.dart';
+import 'providers/notification_provider.dart';
+import 'providers/settings_provider.dart'; // 新增
+import 'screens/auth/login_screen.dart';
+import 'screens/main/main_navigation.dart';
+import 'services/notification_service.dart';
+import 'utils/app_theme.dart';
+import 'generated/l10n.dart'; // Flutter Intl 生成的檔案
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    // 初始化 Firebase
+    await Firebase.initializeApp();
+
+    // 初始化通知服務
+    await NotificationService.instance.initialize();
+
+    print('App initialization completed successfully');
+  } catch (e) {
+    print('Failed to initialize app: $e');
+  }
+
+  runApp(const XeniaApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class XeniaApp extends StatelessWidget {
+  const XeniaApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        ChangeNotifierProvider(create: (_) => CGMProvider()),
+        ChangeNotifierProvider(create: (_) => BluetoothProvider()),
+        ChangeNotifierProvider(create: (_) => NotificationProvider()),
+        ChangeNotifierProvider(create: (_) => SettingsProvider()), // 新增
+      ],
+      child: Consumer<SettingsProvider>(
+        builder: (context, settingsProvider, _) {
+          return Consumer<AuthProvider>(
+            builder: (context, authProvider, _) {
+              return MaterialApp(
+                title: 'Xenia',
+                debugShowCheckedModeBanner: false,
+
+                // 主題配置
+                theme: AppTheme.lightTheme,
+                darkTheme: AppTheme.darkTheme,
+                themeMode: settingsProvider.darkMode
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+
+                // 國際化配置 (使用 Flutter Intl)
+                localizationsDelegates: const [
+                  S.delegate, // Flutter Intl 生成的代理
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: S.delegate.supportedLocales,
+
+                // 語言設定
+                locale: Locale(
+                  settingsProvider.language == 'zh_TW' ? 'zh' : 'en',
+                  settingsProvider.language == 'zh_TW' ? 'TW' : null,
+                ),
+
+                // 路由配置
+                home: _buildHome(authProvider),
+
+                // 全域錯誤處理
+                builder: (context, child) {
+                  return _GlobalErrorHandler(child: child);
+                },
+              );
+            },
+          );
+        },
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-}
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  Widget _buildHome(AuthProvider authProvider) {
+    // 顯示載入畫面
+    if (authProvider.isLoading) {
+      return const Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 60,
+                height: 60,
+                child: CircularProgressIndicator(
+                  strokeWidth: 4,
+                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                'Xenia',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.primary,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '初始化中...',
+                style: TextStyle(
+                  fontSize: 16,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
+    // 根據認證狀態返回對應頁面
+    if (authProvider.isAuthenticated) {
+      return const MainNavigation();
+    }
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+    return const LoginScreen();
   }
+}
+
+// 全域錯誤處理器
+class _GlobalErrorHandler extends StatelessWidget {
+  final Widget? child;
+
+  const _GlobalErrorHandler({this.child});
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+    return child ?? const SizedBox.shrink();
+  }
+}
+
+// 應用程式錯誤處理
+class AppErrorWidget extends StatelessWidget {
+  final FlutterErrorDetails errorDetails;
+
+  const AppErrorWidget({
+    super.key,
+    required this.errorDetails,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        color: AppColors.error,
+        child: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.error_outline,
+                color: Colors.white,
+                size: 64,
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Xenia 遇到了問題',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                '請重新啟動應用程式',
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
