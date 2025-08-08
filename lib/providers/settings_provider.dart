@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 
 class SettingsProvider extends ChangeNotifier {
   // 血糖警報設定
@@ -68,6 +69,18 @@ class SettingsProvider extends ChangeNotifier {
 
   Future<void> setGlucoseAlertsEnabled(bool value) async {
     _glucoseAlertsEnabled = value;
+    await _saveSettings();
+    notifyListeners();
+  }
+
+  Future<void> setDeviceAlertsEnabled(bool value) async {
+    _deviceAlertsEnabled = value;
+    await _saveSettings();
+    notifyListeners();
+  }
+
+  Future<void> setReminderAlertsEnabled(bool value) async {
+    _reminderAlertsEnabled = value;
     await _saveSettings();
     notifyListeners();
   }

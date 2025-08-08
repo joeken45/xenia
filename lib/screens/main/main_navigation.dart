@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/notification_provider.dart';
+import '../../providers/notification_provider.dart';
 import 'dashboard_screen.dart';
 import 'analytics_screen.dart';
 import 'logging_screen.dart';
 import 'notifications_screen.dart';
 import 'profile_screen.dart';
-import '../utils/constants.dart';
+import '../../utils/constants.dart';
 
 class MainNavigation extends StatefulWidget {
   const MainNavigation({super.key});

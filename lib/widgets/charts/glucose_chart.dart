@@ -231,8 +231,8 @@ class SimpleGlucoseChartPainter extends CustomPainter {
       ..color = AppColors.glucoseLow.withOpacity(0.1)
       ..style = PaintingStyle.fill;
 
-    final minValue = 40.0;
-    final maxValue = 300.0;
+    const minValue = 40.0;
+    const maxValue = 300.0;
 
     // 計算 Y 座標
     final highY = size.height * (1 - (180 - minValue) / (maxValue - minValue));
@@ -255,8 +255,8 @@ class SimpleGlucoseChartPainter extends CustomPainter {
     if (readings.length < 2) return;
 
     final path = Path();
-    final minValue = 40.0;
-    final maxValue = 300.0;
+    const minValue = 40.0;
+    const maxValue = 300.0;
 
     for (int i = 0; i < readings.length; i++) {
       final x = size.width * i / (readings.length - 1);
@@ -274,8 +274,8 @@ class SimpleGlucoseChartPainter extends CustomPainter {
   }
 
   void _drawDataPoints(Canvas canvas, Size size) {
-    final minValue = 40.0;
-    final maxValue = 300.0;
+    const minValue = 40.0;
+    const maxValue = 300.0;
 
     for (int i = 0; i < readings.length; i++) {
       final reading = readings[i];
@@ -310,5 +310,7 @@ class SimpleGlucoseChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant SimpleGlucoseChartPainter oldDelegate) {
+    return readings != oldDelegate.readings || showGrid != oldDelegate.showGrid;
+  }
 }

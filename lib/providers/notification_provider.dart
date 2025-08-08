@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import '../services/notification_service.dart';
+import '../providers/settings_provider.dart'; // 添加這個 import
 
 class NotificationProvider extends ChangeNotifier {
   final NotificationService _notificationService = NotificationService.instance;
@@ -33,6 +33,22 @@ class NotificationProvider extends ChangeNotifier {
         body: '開始您的血糖管理之旅',
         type: NotificationType.info,
         timestamp: DateTime.now(),
+        isRead: false,
+      ),
+      AppNotification(
+        id: '2',
+        title: '血糖提醒',
+        body: '請記得檢查您的血糖數值',
+        type: NotificationType.reminder,
+        timestamp: DateTime.now().subtract(const Duration(hours: 1)),
+        isRead: true,
+      ),
+      AppNotification(
+        id: '3',
+        title: '設備連接',
+        body: 'CGM 設備已成功連接',
+        type: NotificationType.deviceAlert,
+        timestamp: DateTime.now().subtract(const Duration(hours: 2)),
         isRead: false,
       ),
     ];
@@ -70,6 +86,12 @@ class NotificationProvider extends ChangeNotifier {
   Future<void> clearAllNotifications() async {
     _notifications.clear();
     _unreadCount = 0;
+    notifyListeners();
+  }
+
+  Future<void> addNotification(AppNotification notification) async {
+    _notifications.insert(0, notification);
+    _updateUnreadCount();
     notifyListeners();
   }
 }

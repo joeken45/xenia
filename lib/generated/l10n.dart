@@ -55,436 +55,496 @@ class S {
     return Intl.message(
       'Xenia',
       name: 'appName',
-      desc: 'The application name',
+      desc: '',
       args: [],
     );
   }
 
-  /// `Welcome to Xenia`
+  /// `歡迎使用 Xenia`
   String get welcome {
     return Intl.message(
-      'Welcome to Xenia',
+      '歡迎使用 Xenia',
       name: 'welcome',
-      desc: 'Welcome message',
+      desc: '',
       args: [],
     );
   }
 
-  /// `Your Smart CGM Companion`
+  /// `您的智慧血糖管理夥伴`
   String get xeniaDescription {
     return Intl.message(
-      'Your Smart CGM Companion',
+      '您的智慧血糖管理夥伴',
       name: 'xeniaDescription',
-      desc: 'App description',
+      desc: '',
       args: [],
     );
   }
 
-  /// `Login`
+  /// `登入`
   String get login {
     return Intl.message(
-      'Login',
+      '登入',
       name: 'login',
-      desc: 'Login button text',
+      desc: '',
       args: [],
     );
   }
 
-  /// `Register`
+  /// `註冊`
   String get register {
     return Intl.message(
-      'Register',
+      '註冊',
       name: 'register',
       desc: '',
       args: [],
     );
   }
 
-  /// `Email`
+  /// `電子信箱`
   String get email {
     return Intl.message(
-      'Email',
+      '電子信箱',
       name: 'email',
       desc: '',
       args: [],
     );
   }
 
-  /// `Password`
+  /// `密碼`
   String get password {
     return Intl.message(
-      'Password',
+      '密碼',
       name: 'password',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm Password`
+  /// `確認密碼`
   String get confirmPassword {
     return Intl.message(
-      'Confirm Password',
+      '確認密碼',
       name: 'confirmPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Name`
+  /// `姓名`
   String get name {
     return Intl.message(
-      'Name',
+      '姓名',
       name: 'name',
       desc: '',
       args: [],
     );
   }
 
-  /// `Phone Number`
+  /// `手機號碼`
   String get phoneNumber {
     return Intl.message(
-      'Phone Number',
+      '手機號碼',
       name: 'phoneNumber',
       desc: '',
       args: [],
     );
   }
 
-  /// `Forgot Password?`
+  /// `忘記密碼？`
   String get forgotPassword {
     return Intl.message(
-      'Forgot Password?',
+      '忘記密碼？',
       name: 'forgotPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Reset Password`
+  /// `重設密碼`
   String get resetPassword {
     return Intl.message(
-      'Reset Password',
+      '重設密碼',
       name: 'resetPassword',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign in with Google`
+  /// `使用 Google 登入`
   String get signInWithGoogle {
     return Intl.message(
-      'Sign in with Google',
+      '使用 Google 登入',
       name: 'signInWithGoogle',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign in with Apple`
+  /// `使用 Apple 登入`
   String get signInWithApple {
     return Intl.message(
-      'Sign in with Apple',
+      '使用 Apple 登入',
       name: 'signInWithApple',
       desc: '',
       args: [],
     );
   }
 
-  /// `Don't have an account?`
+  /// `還沒有帳號？`
   String get dontHaveAccount {
     return Intl.message(
-      'Don\'t have an account?',
+      '還沒有帳號？',
       name: 'dontHaveAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Already have an account?`
+  /// `已經有帳號了？`
   String get alreadyHaveAccount {
     return Intl.message(
-      'Already have an account?',
+      '已經有帳號了？',
       name: 'alreadyHaveAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign Up`
+  /// `註冊`
   String get signUp {
     return Intl.message(
-      'Sign Up',
+      '註冊',
       name: 'signUp',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign In`
+  /// `登入`
   String get signIn {
     return Intl.message(
-      'Sign In',
+      '登入',
       name: 'signIn',
       desc: '',
       args: [],
     );
   }
 
-  /// `Sign Out`
+  /// `登出`
   String get signOut {
     return Intl.message(
-      'Sign Out',
+      '登出',
       name: 'signOut',
       desc: '',
       args: [],
     );
   }
 
-  /// `Dashboard`
+  /// `首頁`
   String get dashboard {
     return Intl.message(
-      'Dashboard',
+      '首頁',
       name: 'dashboard',
       desc: '',
       args: [],
     );
   }
 
-  /// `Analytics`
+  /// `分析`
   String get analytics {
     return Intl.message(
-      'Analytics',
+      '分析',
       name: 'analytics',
       desc: '',
       args: [],
     );
   }
 
-  /// `Logging`
+  /// `紀錄`
   String get logging {
     return Intl.message(
-      'Logging',
+      '紀錄',
       name: 'logging',
       desc: '',
       args: [],
     );
   }
 
-  /// `Notifications`
+  /// `通知`
   String get notifications {
     return Intl.message(
-      'Notifications',
+      '通知',
       name: 'notifications',
       desc: '',
       args: [],
     );
   }
 
-  /// `Profile`
+  /// `我的`
   String get profile {
     return Intl.message(
-      'Profile',
+      '我的',
       name: 'profile',
       desc: '',
       args: [],
     );
   }
 
-  /// `Current Glucose`
+  /// `目前血糖`
   String get currentGlucose {
     return Intl.message(
-      'Current Glucose',
+      '目前血糖',
       name: 'currentGlucose',
       desc: '',
       args: [],
     );
   }
 
-  /// `Glucose Trend`
+  /// `血糖趨勢`
   String get glucoseTrend {
     return Intl.message(
-      'Glucose Trend',
+      '血糖趨勢',
       name: 'glucoseTrend',
       desc: '',
       args: [],
     );
   }
 
-  /// `Device Status`
+  /// `設備狀態`
   String get deviceStatus {
     return Intl.message(
-      'Device Status',
+      '設備狀態',
       name: 'deviceStatus',
       desc: '',
       args: [],
     );
   }
 
-  /// `Connected`
+  /// `已連接`
   String get connected {
     return Intl.message(
-      'Connected',
+      '已連接',
       name: 'connected',
       desc: '',
       args: [],
     );
   }
 
-  /// `Disconnected`
+  /// `未連接`
   String get disconnected {
     return Intl.message(
-      'Disconnected',
+      '未連接',
       name: 'disconnected',
       desc: '',
       args: [],
     );
   }
 
-  /// `Connect Device`
+  /// `連接設備`
   String get connectDevice {
     return Intl.message(
-      'Connect Device',
+      '連接設備',
       name: 'connectDevice',
       desc: '',
       args: [],
     );
   }
 
-  /// `Start Setup`
+  /// `開始設定`
   String get startSetup {
     return Intl.message(
-      'Start Setup',
+      '開始設定',
       name: 'startSetup',
       desc: '',
       args: [],
     );
   }
 
-  /// `Save`
+  /// `儲存`
   String get save {
     return Intl.message(
-      'Save',
+      '儲存',
       name: 'save',
       desc: '',
       args: [],
     );
   }
 
-  /// `Cancel`
+  /// `取消`
   String get cancel {
     return Intl.message(
-      'Cancel',
+      '取消',
       name: 'cancel',
       desc: '',
       args: [],
     );
   }
 
-  /// `Delete`
+  /// `刪除`
   String get delete {
     return Intl.message(
-      'Delete',
+      '刪除',
       name: 'delete',
       desc: '',
       args: [],
     );
   }
 
-  /// `Edit`
+  /// `編輯`
   String get edit {
     return Intl.message(
-      'Edit',
+      '編輯',
       name: 'edit',
       desc: '',
       args: [],
     );
   }
 
-  /// `Confirm`
+  /// `確認`
   String get confirm {
     return Intl.message(
-      'Confirm',
+      '確認',
       name: 'confirm',
       desc: '',
       args: [],
     );
   }
 
-  /// `Loading...`
+  /// `載入中...`
   String get loading {
     return Intl.message(
-      'Loading...',
+      '載入中...',
       name: 'loading',
       desc: '',
       args: [],
     );
   }
 
-  /// `Retry`
+  /// `重試`
   String get retry {
     return Intl.message(
-      'Retry',
+      '重試',
       name: 'retry',
       desc: '',
       args: [],
     );
   }
 
-  /// `Refresh`
+  /// `重新整理`
   String get refresh {
     return Intl.message(
-      'Refresh',
+      '重新整理',
       name: 'refresh',
       desc: '',
       args: [],
     );
   }
 
-  /// `No data available`
+  /// `暫無資料`
   String get noData {
     return Intl.message(
-      'No data available',
+      '暫無資料',
       name: 'noData',
       desc: '',
       args: [],
     );
   }
 
-  /// `Error`
+  /// `錯誤`
   String get error {
     return Intl.message(
-      'Error',
+      '錯誤',
       name: 'error',
       desc: '',
       args: [],
     );
   }
 
-  /// `Success`
+  /// `成功`
   String get success {
     return Intl.message(
-      'Success',
+      '成功',
       name: 'success',
       desc: '',
       args: [],
     );
   }
 
-  /// `Warning`
+  /// `警告`
   String get warning {
     return Intl.message(
-      'Warning',
+      '警告',
       name: 'warning',
       desc: '',
       args: [],
     );
   }
 
-  /// `Information`
+  /// `資訊`
   String get info {
     return Intl.message(
-      'Information',
+      '資訊',
       name: 'info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登入成功`
+  String get loginSuccess {
+    return Intl.message(
+      '登入成功',
+      name: 'loginSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `註冊成功`
+  String get registerSuccess {
+    return Intl.message(
+      '註冊成功',
+      name: 'registerSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `登出成功`
+  String get logoutSuccess {
+    return Intl.message(
+      '登出成功',
+      name: 'logoutSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `儲存成功`
+  String get saveSuccess {
+    return Intl.message(
+      '儲存成功',
+      name: 'saveSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `刪除成功`
+  String get deleteSuccess {
+    return Intl.message(
+      '刪除成功',
+      name: 'deleteSuccess',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `更新成功`
+  String get updateSuccess {
+    return Intl.message(
+      '更新成功',
+      name: 'updateSuccess',
       desc: '',
       args: [],
     );

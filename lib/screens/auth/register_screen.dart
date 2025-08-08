@@ -215,19 +215,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                 color: AppColors.textSecondary,
               ),
-              children: [
-                const TextSpan(text: '我已閱讀並同意 '),
+              children: const [
+                TextSpan(text: '我已閱讀並同意 '),
                 TextSpan(
                   text: '使用條款',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primary,
                     decoration: TextDecoration.underline,
                   ),
                 ),
-                const TextSpan(text: ' 和 '),
+                TextSpan(text: ' 和 '),
                 TextSpan(
                   text: '隱私權政策',
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: AppColors.primary,
                     decoration: TextDecoration.underline,
                   ),
@@ -384,7 +384,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(S.of(context).success),
+              content: Text(S.of(context).registerSuccess),
               backgroundColor: AppColors.success,
             ),
           );
@@ -423,7 +423,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(S.of(context).success),
+              content: Text(S.of(context).registerSuccess),
               backgroundColor: AppColors.success,
             ),
           );

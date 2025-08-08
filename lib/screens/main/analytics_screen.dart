@@ -5,6 +5,7 @@ import '../../providers/bluetooth_provider.dart';
 import '../../widgets/cards/stats_card.dart';
 import '../../widgets/charts/glucose_chart.dart';
 import '../../widgets/common/custom_button.dart';
+import '../../widgets/common/error_widget.dart';
 import '../../utils/constants.dart';
 import '../../generated/l10n.dart';
 
@@ -430,7 +431,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen>
             ),
             const SizedBox(height: AppSizes.paddingM),
             // 趨勢分析內容
-            Text('趨勢分析功能開發中...'),
+            const Text('趨勢分析功能開發中...'),
           ],
         ),
       ),
@@ -452,7 +453,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen>
             ),
             const SizedBox(height: AppSizes.paddingM),
             // 模式分析內容
-            Text('模式分析功能開發中...'),
+            const Text('模式分析功能開發中...'),
           ],
         ),
       ),
@@ -474,7 +475,7 @@ class _AnalyticsScreenState extends State<AnalyticsScreen>
             ),
             const SizedBox(height: AppSizes.paddingM),
             // 時間基礎分析內容
-            Text('時間基礎分析功能開發中...'),
+            const Text('時間基礎分析功能開發中...'),
           ],
         ),
       ),
