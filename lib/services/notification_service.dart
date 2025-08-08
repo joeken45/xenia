@@ -75,7 +75,6 @@ class NotificationService {
       importance: Importance.high,
       playSound: true,
       enableVibration: true,
-      vibrationPattern: Int64List.fromList([0, 1000, 500, 1000]),
     );
 
     // 設備狀態頻道
@@ -142,7 +141,6 @@ class NotificationService {
     if (Platform.isAndroid) {
       final androidPermissions = [
         Permission.notification,
-        Permission.vibration,
       ];
 
       final statuses = await androidPermissions.request();
@@ -181,19 +179,14 @@ class NotificationService {
       await initialize();
     }
 
-    final androidDetails = AndroidNotificationDetails(
+    const androidDetails = AndroidNotificationDetails(
       NotificationChannels.glucoseAlertsId,
       NotificationChannels.glucoseAlertsName,
       channelDescription: NotificationChannels.glucoseAlertsDescription,
       importance: Importance.high,
       priority: Priority.high,
-      icon: isHighAlert ? 'glucose_high' : 'glucose_low',
-      color: isHighAlert ? AppColors.glucoseHigh : AppColors.glucoseLow,
       playSound: true,
-      sound: const RawResourceAndroidNotificationSound('glucose_alert'),
       enableVibration: true,
-      vibrationPattern: Int64List.fromList([0, 1000, 500, 1000]),
-      ticker: title,
       autoCancel: false, // 需要用戶手動清除
       ongoing: false,
       category: AndroidNotificationCategory.alarm,
@@ -204,7 +197,6 @@ class NotificationService {
       presentAlert: true,
       presentBadge: true,
       presentSound: true,
-      sound: 'glucose_alert.aiff',
       badgeNumber: 1,
       categoryIdentifier: 'glucose_alert',
       threadIdentifier: 'glucose_alerts',
@@ -240,8 +232,6 @@ class NotificationService {
       channelDescription: NotificationChannels.deviceStatusDescription,
       importance: isError ? Importance.high : Importance.defaultImportance,
       priority: isError ? Priority.high : Priority.defaultPriority,
-      icon: 'bluetooth_connected',
-      color: isError ? AppColors.error : AppColors.info,
       playSound: isError,
       enableVibration: isError,
       autoCancel: true,
@@ -284,8 +274,6 @@ class NotificationService {
       channelDescription: NotificationChannels.remindersDescription,
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
-      icon: 'ic_notification',
-      color: AppColors.primary,
       playSound: true,
       enableVibration: true,
       autoCancel: true,
@@ -309,53 +297,6 @@ class NotificationService {
       body,
       notificationDetails,
       payload: 'reminder:$type',
-    );
-  }
-
-  // 排程通知
-  Future<void> scheduleNotification({
-    required int id,
-    required String title,
-    required String body,
-    required DateTime scheduledTime,
-    String channelId = NotificationChannels.remindersId,
-    String? payload,
-  }) async {
-    if (!_isInitialized) {
-      await initialize();
-    }
-
-    final androidDetails = AndroidNotificationDetails(
-      channelId,
-      _getChannelName(channelId),
-      channelDescription: _getChannelDescription(channelId),
-      importance: Importance.defaultImportance,
-      priority: Priority.defaultPriority,
-      icon: 'ic_notification',
-      color: AppColors.primary,
-    );
-
-    const iOSDetails = DarwinNotificationDetails(
-      presentAlert: true,
-      presentBadge: true,
-      presentSound: true,
-    );
-
-    const notificationDetails = NotificationDetails(
-      android: androidDetails,
-      iOS: iOSDetails,
-    );
-
-    await _localNotifications.zonedSchedule(
-      id,
-      title,
-      body,
-      TZDateTime.from(scheduledTime, TZ.local),
-      notificationDetails,
-      payload: payload,
-      uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
     );
   }
 
@@ -405,8 +346,6 @@ class NotificationService {
       channelDescription: '來自伺服器的推播訊息',
       importance: Importance.defaultImportance,
       priority: Priority.defaultPriority,
-      icon: 'ic_notification',
-      color: AppColors.primary,
     );
 
     const iOSDetails = DarwinNotificationDetails(
@@ -450,7 +389,7 @@ class NotificationService {
         _handleDeviceStatusTap();
         break;
       case 'reminder':
-      // 導航到相應提醒頁面
+      // 處理提醒相關邏輯
         _handleReminderTap(parts.length > 1 ? parts[1] : '');
         break;
       case 'firebase':
@@ -517,40 +456,8 @@ class NotificationService {
     }
   }
 
-  // 輔助方法：獲取頻道名稱
-  String _getChannelName(String channelId) {
-    switch (channelId) {
-      case NotificationChannels.glucoseAlertsId:
-        return NotificationChannels.glucoseAlertsName;
-      case NotificationChannels.deviceStatusId:
-        return NotificationChannels.deviceStatusName;
-      case NotificationChannels.remindersId:
-        return NotificationChannels.remindersName;
-      default:
-        return 'Xenia 通知';
-    }
-  }
-
-  // 輔助方法：獲取頻道描述
-  String _getChannelDescription(String channelId) {
-    switch (channelId) {
-      case NotificationChannels.glucoseAlertsId:
-        return NotificationChannels.glucoseAlertsDescription;
-      case NotificationChannels.deviceStatusId:
-        return NotificationChannels.deviceStatusDescription;
-      case NotificationChannels.remindersId:
-        return NotificationChannels.remindersDescription;
-      default:
-        return 'Xenia 應用程式通知';
-    }
-  }
-
   // 清理資源
   void dispose() {
     // 清理訂閱和資源
   }
 }
-
-// 需要添加到 pubspec.yaml 的時區支援
-import 'package:timezone/timezone.dart' as TZ;
-import 'package:timezone/data/latest.dart' as TZ;

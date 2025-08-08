@@ -1,6 +1,6 @@
-
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import '../models/glucose_reading.dart';
 
 class PDFService {
   static final PDFService _instance = PDFService._internal();

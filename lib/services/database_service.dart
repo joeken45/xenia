@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import '../models/glucose_reading.dart';
@@ -57,7 +58,10 @@ class DatabaseService {
         calories REAL,
         category TEXT,
         notes TEXT,
-        images TEXT
+        images TEXT,
+        mealType INTEGER NOT NULL DEFAULT 0,
+        quantity REAL,
+        unit TEXT
       )
     ''');
 
@@ -70,7 +74,10 @@ class DatabaseService {
         duration INTEGER NOT NULL,
         intensity INTEGER NOT NULL,
         caloriesBurned REAL,
-        notes TEXT
+        notes TEXT,
+        category INTEGER NOT NULL DEFAULT 0,
+        distance REAL,
+        heartRate INTEGER
       )
     ''');
 
@@ -82,7 +89,9 @@ class DatabaseService {
         type INTEGER NOT NULL,
         dose REAL NOT NULL,
         injectionSite INTEGER,
-        notes TEXT
+        notes TEXT,
+        brandName TEXT,
+        purpose INTEGER NOT NULL DEFAULT 0
       )
     ''');
 
@@ -96,7 +105,9 @@ class DatabaseService {
         batteryLevel INTEGER NOT NULL,
         isConnected INTEGER NOT NULL,
         sensorSerialNumber TEXT,
-        sensorExpiryDate INTEGER
+        sensorExpiryDate INTEGER,
+        deviceType INTEGER NOT NULL DEFAULT 0,
+        manufacturerName TEXT
       )
     ''');
 

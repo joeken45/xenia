@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import '../../models/glucose_reading.dart';
+import '../../utils/constants.dart';
 
 class TrendArrow extends StatelessWidget {
   final GlucoseTrend trend;

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/cgm_provider.dart';
-import '../providers/bluetooth_provider.dart';
-import '../widgets/cards/glucose_card.dart';
-import '../widgets/cards/device_status_card.dart';
-import '../widgets/charts/glucose_chart.dart';
-import '../widgets/common/custom_button.dart';
-import '../screens/device/device_setup_screen.dart';
-import '../utils/constants.dart';
+import '../../providers/cgm_provider.dart';
+import '../../providers/bluetooth_provider.dart';
+import '../../widgets/cards/glucose_card.dart';
+import '../../widgets/cards/device_status_card.dart';
+import '../../widgets/charts/glucose_chart.dart';
+import '../../widgets/common/custom_button.dart';
+import '../../screens/device/device_setup_screen.dart';
+import '../../utils/constants.dart';
+import '../../models/glucose_reading.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -278,7 +279,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  List<dynamic> _filterDataByTimeRange(List<dynamic> readings) {
+  List<GlucoseReading> _filterDataByTimeRange(List<GlucoseReading> readings) {
     if (readings.isEmpty) return readings;
 
     final now = DateTime.now();
@@ -304,7 +305,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final cutoffTime = now.subtract(Duration(hours: hours));
 
     return readings.where((reading) {
-      // 假設 reading 有 timestamp 屬性
       return reading.timestamp.isAfter(cutoffTime);
     }).toList();
   }

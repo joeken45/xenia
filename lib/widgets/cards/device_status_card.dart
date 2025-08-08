@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import '../../utils/constants.dart';
 
 class DeviceStatusCard extends StatelessWidget {
   const DeviceStatusCard({super.key});

@@ -1,4 +1,3 @@
-
 class DateHelper {
   static String formatTimestamp(DateTime timestamp) {
     final now = DateTime.now();
